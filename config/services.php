@@ -30,6 +30,11 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'drift' => [
+        'client_id' => env('DRIFT_CLIENT_ID'),
+        'client_secret' => env('DRIFT_CLIENT_SECRET'),
+        'base_url' => env('DRIFT_BASE_URL')
+    ],
     'stripe' => [
         'model' => App\User::class,
         'key' => env('STRIPE_KEY'),

@@ -1,0 +1,4 @@
+{
+    "php-cs-fixer.config": "/Users/user/.vscode/.php_cs",
+    "php-cs-fixer.onsave": true
+}
