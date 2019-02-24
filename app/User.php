@@ -45,4 +45,21 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(DriftToken::class);
     }
 
+    public function phoneNumbers()
+    {
+        return $this->hasMany(PhoneNumber::class);
+    }
+
+    public function logEntry()
+    {
+        return $this->hasMany(LogEntry::class);
+    }
+
+    public function createLogEntry()
+    {
+        $logEntry = $this->logEntry()->create();
+        
+        return $logEntry;
+    }
+
 }

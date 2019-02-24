@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Drift;
 use App\DriftToken;
+use App\User;
+use App\Events\Drift\ConversationStarted;
 
 class DriftController extends Controller
 {
@@ -18,17 +20,24 @@ class DriftController extends Controller
 
    public function setup(Request $request, DriftToken $driftToken)
    {
-     $driftToken = $this->api->fetchAccessToken($request->code);
+     $drift = $this->api->fetchAccessToken($request->code);
+
+     $user = User::first();
 
      $attributes = [
-        'access_token' => $driftToken['access_token'],
-        'refresh_token' => $driftToken['refresh_token'],
-        'organization_id' => $driftToken['orgId'],
-        'user_id' => $request->user()->id,
+        'access_token' => $drift['access_token'],
+        'refresh_token' => $drift['refresh_token'],
+        'organization_id' => $drift['orgId'],
+        'user_id' => $user->id,
      ];
 
      $driftAccount = $driftToken->create($attributes);
 
      return response()->json(compact('driftAccount', 201));
+   }
+
+   public function notifyUserConversationStarted(Request $request)
+   {
+       event(new ConversationStarted($request->all()));
    }
 }

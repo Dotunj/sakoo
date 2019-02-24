@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DriftToken extends Model
+class PhoneNumber extends Model
 {
-    protected $fillable = ['organization_id', 'user_id', 'access_token', 'refresh_token'];
+    protected $fillable = ['number'];
 
     public function user()
     {

@@ -8,7 +8,7 @@ class Drift
 {
     protected $clientId;
 
-    protected $secret;
+    protected $clientSecret;
 
     protected $baseUrl;
 
@@ -16,22 +16,20 @@ class Drift
     {
         $this->clientId = config('services.drift.client_id');
 
-        $this->secret = config('services.drift.client_secret');
+        $this->clientSecret = config('services.drift.client_secret');
 
         $this->baseUrl = config('services.drift.base_url');
 
-        $this->setupClient();
+        //$this->setupClient();
     }
 
     protected function setupClient()
     { 
-        $bearer = 'Bearer ' . $this->secret;
 
         $this->client = new Client([
             'base_uri' => $this->baseUrl,
             'headers' => [
-                'Authorization' => $bearer,
-                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ],
         ]);
@@ -39,8 +37,12 @@ class Drift
 
     public function fetchAccessToken($code)
     {
-        $response = $this->client->request('POST', '/oauth2/token', [
-            'application/x-www-form-urlencoded' => [
+        $guzzle = new Client();
+
+        $response = $guzzle->request('POST', $this->baseUrl . '/oauth2/token', [
+            'form_params' => [
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
                 'code' => $code,
                 'grant_type' => 'authorization_code'
             ]

@@ -15,5 +15,5 @@ use Illuminate\Http\Request;
 
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');
-Route::post('/drift/conversation/started');
+Route::post('/drift/conversation/started', 'API\DriftController@notifyUserConversationStarted');
 Route::get('/drift/install', 'API\DriftController@setup');
