@@ -6,11 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Cashier\Billable;
 
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,11 +56,27 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(LogEntry::class);
     }
 
+    public function successfulLogEntries()
+    {
+        return $this->hasMany(LogEntry::class)->where('status', true);
+    }
+
     public function createLogEntry()
     {
-        $logEntry = $this->logEntry()->create();
+        $logEntry = $this->logEntry()->create([
+            'status' => true
+        ]);
         
         return $logEntry;
+    }
+
+    public function isStillEligibleForTrial()
+    {
+        if($this->successfulLogEntries()->count() <= 20){
+             return true;
+        }
+
+        return false;
     }
 
 }

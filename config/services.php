@@ -35,10 +35,17 @@ return [
         'client_secret' => env('DRIFT_CLIENT_SECRET'),
         'base_url' => env('DRIFT_BASE_URL')
     ],
+
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'number' => env('TWILIO_NUMBER'),
+    ],
+
     'stripe' => [
         'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
+        'key' => determineStripePublicKey(),
+        'secret' => determineStripeSecretKey(),
         'webhook' => [
             'secret' => env('STRIPE_WEBHOOK_SECRET'),
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),

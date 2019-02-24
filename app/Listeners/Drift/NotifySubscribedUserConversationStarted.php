@@ -6,6 +6,7 @@ use App\Events\Drift\ConversationStarted;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\DriftToken;
+use App\Services\NotifyUser;
 
 class NotifySubscribedUserConversationStarted implements ShouldQueue
 {
@@ -27,10 +28,21 @@ class NotifySubscribedUserConversationStarted implements ShouldQueue
      */
     public function handle(ConversationStarted $event)
     {
-        $user = DriftToken::whereOrganizationId($event->payload['orgId'])->first();
+        $driftAccount = DriftToken::whereOrganizationId($event->payload['orgId'])->first();
+
+        $user = $driftAccount->user;
 
         $user->createLogEntry();
 
-        $user->notify(new SMSNotification());
+        (new NotifyUser($user))->viaSms();
+    }
+
+    public function shouldQueue(ConversationStarted $event)
+    {
+        $driftAccount = DriftToken::whereOrganizationId($event->payload['orgId'])->first();
+
+        $user = $driftAccount->user;
+
+        return ($user->subscribed('main') || $user->isStillEligibleForTrial());
     }
 }
