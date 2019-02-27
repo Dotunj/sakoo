@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/register', 'API\AuthController@register')->name('register.user');
+Route::post('/login', 'API\AuthController@login')->name('login.user');
+Route::post('/drift/conversation/started', 'API\DriftController@notifyUserConversationStarted');
+Route::get('/drift/install', 'API\DriftController@setup');
+Route::get('/phone-number/create', 'API\PhoneNumberController@create');
+Route::get('/phone-number/edit/{number}', 'API\PhoneNumberController@edit');
+Route::put('/phone-number/update/{number}', 'API\PhoneNumberController@update');
+Route::delete('/phone-number/delete/{number}', 'API\PhoneNumberController@delete');
