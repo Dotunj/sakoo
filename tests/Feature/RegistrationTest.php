@@ -14,7 +14,8 @@ class RegistrationTest extends TestCase
    /** @test */
     public function a_user_can_register()
     {
-       
+        $this->withoutExceptionHandling();
+        
         $attributes = [
             'name' => 'Dotun Jolaoso',
             'email' => 'dotun@gmail.com',
