@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PhoneNumber extends Model
 {
-    protected $fillable = ['number'];
+    protected $fillable = ['number', 'notification_on'];
 
     public function user()
     {
