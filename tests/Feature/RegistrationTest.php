@@ -9,13 +9,13 @@ use App\User;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+   use RefreshDatabase;
 
    /** @test */
     public function a_user_can_register()
     {
         $this->withoutExceptionHandling();
-        
+
         $attributes = [
             'name' => 'Dotun Jolaoso',
             'email' => 'dotun@gmail.com',

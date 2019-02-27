@@ -12,11 +12,5 @@
 */
 
 Route::get('/', function () {
-    $driftUser = \App\DriftToken::whereOrganizationId(1070013)->first();
-
-    $user = $driftUser->user;
-
-    dd($user->id);
-
-     dd($user->subscribed('main') || $user->isStillEligibleForTrial());
+    return view('welcome');
 });
