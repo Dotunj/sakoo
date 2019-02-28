@@ -6,7 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class PhoneNumber extends Model
 {
-    protected $fillable = ['number', 'notification_on'];
+    protected $fillable = ['identifier', 'number', 'notification_on'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($number) {
+            $number->identifier = uniqid();
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return "identifier";
+    }
 
     public function user()
     {

@@ -15,6 +15,7 @@ class CreatePhoneNumbersTable extends Migration
     {
         Schema::create('phone_numbers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('identifier');
             $table->unsignedInteger('user_id');
             $table->string('number');
             $table->boolean('notification_on')->default(false);
