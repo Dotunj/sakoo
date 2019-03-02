@@ -115,6 +115,5 @@ class PhoneNumberTest extends TestCase
       $user = $this->signIn();
 
       $this->json('POST', route('create.phone.number'))->assertJsonValidationErrors(['number']);
-
   }
 }
