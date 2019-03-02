@@ -12,9 +12,5 @@
 */
 
 Route::get('/', function () {
-   $user = App\User::first();
-
-   dd($user->notifiablePhoneNumbers);
-   
-    // return view('welcome');
+    return view('welcome');
 });

@@ -73,24 +73,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://dev.drift.com/authorize?response_type=code&client_id={{config('services.drift.client_id')}}&redirect_uri=https://a99efe43.ngrok.io/api/drift/install
+                    <a href="https://dev.drift.com/authorize?response_type=code&client_id={{config('services.drift.client_id')}}&redirect_uri=https://bb474c19.ngrok.io/api/drift/install
                     &state=1234zyx">Connect Drift</a>
                 </div>
-
-            <form action="{{route('create.subscription')}}" method="POST">
-                    <script
-                      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="pk_test_dW7p3Rv4aUnJ8jNxwGeoTy1d"
-                      data-amount="999"
-                      data-name="Sakoo"
-                      data-description="Widget"
-                      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                      data-locale="auto"
-                      data-zip-code="true"
-                      data-currency="gbp">
-                    </script>
-                  </form>
-
             </div>
         </div>
     </body>
