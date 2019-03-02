@@ -5,20 +5,21 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\PhoneNumber;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePhoneNumberRequest;
 
 class PhoneNumberController extends Controller
 {
-    public function create(Request $request)
+    public function create(CreatePhoneNumberRequest $request)
     {
-        $user = auth()->user;
+        $user = auth()->user();
 
         $attributes = $request->only(['number', 'notification_on']);
 
-        $phoneNumber = $user->phoneNumber->create($attributes);
+        $phoneNumber = $user->phoneNumbers()->create($attributes);
 
         $result = [
             'status' => true,
-            'message' => 'Retrieved phone number ',
+            'message' => 'Number has been added',
             'data' => $phoneNumber
         ];
 
@@ -27,6 +28,8 @@ class PhoneNumberController extends Controller
 
     public function edit(PhoneNumber $number)
     {
+        $this->authorize('touch', $number);
+
         $result = [
             'status' => true,
             'message' => 'Retrieved phone number ',
@@ -38,12 +41,18 @@ class PhoneNumberController extends Controller
 
     public function update(Request $request, PhoneNumber $number)
     {
-        $phoneNumber = $number->update($request->only(['number', 'notification_on']));
+        $this->authorize('touch', $number);
+
+        $attributes = $request->only(['number', 'notification_on']);
+
+        $number->update($attributes);
+
+        $number->fresh();
 
         $result = [
             'status' => true,
             'message' => 'Phone number has been updated',
-            'data' => $phoneNumber
+            'data' => $number
         ];
 
         return response()->json($result);
@@ -52,6 +61,8 @@ class PhoneNumberController extends Controller
 
     public function delete(PhoneNumber $number)
     {
+        $this->authorize('touch', $number);
+        
         $number->delete();
 
         $result = [
