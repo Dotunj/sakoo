@@ -20,7 +20,7 @@ class TrialAboutToExpire
     public function usersTrialDueToExpire()
     {
        $users = $this->users->filter(function($user) {
-           return $user->successfulLogEntriesCount() <= 18;
+           return $user->successfulLogEntriesCount() >= 18;
        });
 
         return $users;
