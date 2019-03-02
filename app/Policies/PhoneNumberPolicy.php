@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\App\PhoneNumber;
+use App\PhoneNumber;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PhoneNumberPolicy

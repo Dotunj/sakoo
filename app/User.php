@@ -51,6 +51,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(PhoneNumber::class);
     }
 
+    public function notifiablePhoneNumbers()
+    {
+        return $this->hasMany(PhoneNumber::class)->where('notification_on', true);
+    }
+
     public function logEntry()
     {
         return $this->hasMany(LogEntry::class);

@@ -20,10 +20,13 @@ class NotifyUser
 
     public function viaSms()
     {
-        $phoneNumbers = $this->user->phoneNumbers;
-
+        $phoneNumbers = $this->user->notifiablePhoneNumbers;
+         
+        //dispatch a job to send the SMS via Twilio
         foreach($phoneNumbers as $phoneNumber){
-            $this->twilio->notify($phoneNumber->number);
+            dispatch(function() use($phoneNumber) {
+                $this->twilio->notify($phoneNumber->number);
+            });
         }
 
         return $this;
