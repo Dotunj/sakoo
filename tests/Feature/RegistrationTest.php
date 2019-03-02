@@ -31,4 +31,58 @@ class RegistrationTest extends TestCase
                  ]);
               
     }
+
+    /** @test */
+    public function a_user_can_login()
+    {
+        $this->withoutExceptionHandling();
+
+        $attributes = [
+            'email' => 'dotun@gmail.com',
+            'password' => 123456,
+        ];
+
+        $user = factory(User::class)->create(['email' => 'dotun@gmail.com', 'password'=> bcrypt(123456)]);
+
+        $response = $this->json('POST', route('login'), $attributes);
+
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'token'
+                 ]);
+    }
+
+    /** @test */
+    public function an_invalid_user_cannot_login()
+    {
+        $attributes = [
+            'email' => 'dotun@gmail.com',
+            'password' => 123456,
+        ];
+
+        $response = $this->json('POST', route('login'), $attributes);
+
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'error'
+                 ]);
+    }
+
+    /** @test */
+    public function a_user_needs_a_name_to_register()
+    {
+        $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['name']);
+    }
+
+     /** @test */
+     public function a_user_needs_an_email_to_register()
+     {
+         $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['email']);
+     }
+
+     /** @test */
+     public function a_user_needs_a_password_to_register()
+     {
+         $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['password']);
+     }
 }

@@ -12,7 +12,7 @@ class PhoneNumberPolicy
 
     public function touch(User $user, PhoneNumber $phoneNumber)
     {
-        return $user->id === $phoneNumber->user_id;
+        return $user->id == $phoneNumber->user_id;
     }
 
 }
