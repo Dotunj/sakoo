@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'trial_reminder_sent'
     ];
 
     /**
@@ -75,6 +75,11 @@ class User extends Authenticatable implements JWTSubject
         return $logEntry;
     }
 
+    public function successfulLogEntriesCount()
+    {
+        return $this->successfulLogEntries()->count();
+    }
+
     public function isStillEligibleForTrial()
     {
         if($this->successfulLogEntries()->count() <= 20){
@@ -82,6 +87,11 @@ class User extends Authenticatable implements JWTSubject
         }
 
         return false;
+    }
+
+    public function scopeUsersYetToSubscribe($query)
+    {
+        return $query->whereNull('stripe_id')->where('trial_reminder_sent', false)->get();
     }
 
 }
