@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://dev.drift.com/authorize?response_type=code&client_id={{config('services.drift.client_id')}}&redirect_uri=https://bb474c19.ngrok.io/api/drift/install
+                    <a href="https://dev.drift.com/authorize?response_type=code&client_id={{config('services.drift.client_id')}}&redirect_uri=https://api.sakoo.co/api/drift/install
                     &state=1234zyx">Connect Drift</a>
                 </div>
             </div>
