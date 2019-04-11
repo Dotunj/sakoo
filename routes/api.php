@@ -20,6 +20,7 @@ Route::get('/drift/install', 'API\DriftController@setup');
 
 
 Route::group(['middleware' => 'auth', 'namespace' => 'API'], function() {
+    Route::get('phone-numbers', 'PhoneNumberController@index')->name('all.phone.numbers');
     Route::post('/phone-number/create', 'PhoneNumberController@create')->name('create.phone.number');
     Route::get('/phone-number/edit/{number}', 'PhoneNumberController@edit')->name('edit.phone.number');
     Route::put('/phone-number/update/{number}', 'PhoneNumberController@update')->name('update.phone.number');

@@ -9,6 +9,18 @@ use App\Http\Requests\CreatePhoneNumberRequest;
 
 class PhoneNumberController extends Controller
 {
+    public function index()
+    {
+        $phoneNumbers = auth()->user()->phoneNumbers;
+
+        $result = [
+            'status' => true,
+            'data' => $phoneNumbers
+        ];
+
+        return response()->json($result);
+    }
+
     public function create(CreatePhoneNumberRequest $request)
     {
         $user = auth()->user();
