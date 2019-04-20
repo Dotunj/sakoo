@@ -22,7 +22,7 @@ class DriftController extends Controller
     {
         $drift = $this->api->fetchAccessToken($request->code);
 
-        $user = User::first();
+        $user = auth()->user();
 
         $attributes = [
         'access_token' => $drift['access_token'],
