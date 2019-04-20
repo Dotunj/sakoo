@@ -2,42 +2,42 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
+use App\DriftToken;
+use App\Events\Drift\ConversationStarted;
 use App\Http\Controllers\Controller;
 use App\Services\Drift;
-use App\DriftToken;
 use App\User;
-use App\Events\Drift\ConversationStarted;
+use Illuminate\Http\Request;
 
 class DriftController extends Controller
 {
-   protected $api;
+    protected $api;
 
-   public function __construct(Drift $api)
-   {
-      $this->api = $api;
-   }
+    public function __construct(Drift $api)
+    {
+        $this->api = $api;
+    }
 
-   public function setup(Request $request, DriftToken $driftToken)
-   {
-     $drift = $this->api->fetchAccessToken($request->code);
+    public function setup(Request $request, DriftToken $driftToken)
+    {
+        $drift = $this->api->fetchAccessToken($request->code);
 
-     $user = User::first();
+        $user = auth()->user();
 
-     $attributes = [
+        $attributes = [
         'access_token' => $drift['access_token'],
         'refresh_token' => $drift['refresh_token'],
         'organization_id' => $drift['orgId'],
         'user_id' => $user->id,
      ];
 
-     $driftAccount = $driftToken->create($attributes);
+        $driftAccount = $driftToken->create($attributes);
 
-     return response()->json(compact('driftAccount', 201));
-   }
+        return response()->json(compact('driftAccount', 201));
+    }
 
-   public function notifyUserConversationStarted(Request $request)
-   {
-       event(new ConversationStarted($request->all()));
-   }
+    public function notifyUserConversationStarted(Request $request)
+    {
+        event(new ConversationStarted($request->all()));
+    }
 }

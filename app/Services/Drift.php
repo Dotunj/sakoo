@@ -19,20 +19,6 @@ class Drift
         $this->clientSecret = config('services.drift.client_secret');
 
         $this->baseUrl = config('services.drift.base_url');
-
-        //$this->setupClient();
-    }
-
-    protected function setupClient()
-    { 
-
-        $this->client = new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
-        ]);
     }
 
     public function fetchAccessToken($code)

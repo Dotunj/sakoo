@@ -2,11 +2,10 @@
 
 namespace App\Listeners\Drift;
 
-use App\Events\Drift\ConversationStarted;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\DriftToken;
+use App\Events\Drift\ConversationStarted;
 use App\Services\NotifyUser;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifySubscribedUserConversationStarted implements ShouldQueue
 {

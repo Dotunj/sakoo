@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Services\Twilio;
-
-
 class NotifyUser
 {
     protected $user;
@@ -23,14 +20,12 @@ class NotifyUser
         $phoneNumbers = $this->user->notifiablePhoneNumbers;
          
         //dispatch a job to send the SMS via Twilio
-        foreach($phoneNumbers as $phoneNumber){
-            dispatch(function() use($phoneNumber) {
+        foreach ($phoneNumbers as $phoneNumber) {
+            dispatch(function () use ($phoneNumber) {
                 $this->twilio->notify($phoneNumber->number);
             });
         }
 
         return $this;
     }
-
-
 }

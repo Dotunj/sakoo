@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Services\TrialAboutToExpire;
+use Illuminate\Console\Command;
 
 class SendTrialAboutToExpireEmail extends Command
 {
@@ -12,7 +12,7 @@ class SendTrialAboutToExpireEmail extends Command
      *
      * @var string
      */
-    protected $signature = 'emails:send';
+    protected $signature = 'trial-emails-send';
 
     /**
      * The console command description.

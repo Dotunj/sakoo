@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePhoneNumbersTable extends Migration
 {
@@ -15,7 +15,6 @@ class CreatePhoneNumbersTable extends Migration
     {
         Schema::create('phone_numbers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('identifier');
             $table->unsignedInteger('user_id');
             $table->string('number');
             $table->boolean('notification_on')->default(false);

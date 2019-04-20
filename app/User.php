@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
-
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -82,8 +80,8 @@ class User extends Authenticatable implements JWTSubject
 
     public function isStillEligibleForTrial()
     {
-        if($this->successfulLogEntries()->count() <= 20){
-             return true;
+        if ($this->successfulLogEntries()->count() <= 20) {
+            return true;
         }
 
         return false;
@@ -93,5 +91,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->whereNull('stripe_id')->where('trial_reminder_sent', false)->get();
     }
-
 }
