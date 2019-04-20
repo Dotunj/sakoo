@@ -20,6 +20,8 @@ class User extends Authenticatable implements JWTSubject
         'name', 'email', 'password', 'trial_reminder_sent'
     ];
 
+    protected $appends = ['notifications_sent_today'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -78,6 +80,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->successfulLogEntries()->count();
     }
 
+    public function getNotificationsSentTodayAttribute() 
+    {
+        return $this->notificationsSentToday();
+    }
+
     public function isStillEligibleForTrial()
     {
         if ($this->successfulLogEntries()->count() <= 20) {
@@ -90,5 +97,10 @@ class User extends Authenticatable implements JWTSubject
     public function scopeUsersYetToSubscribe($query)
     {
         return $query->whereNull('stripe_id')->where('trial_reminder_sent', false)->get();
+    }
+
+    public function notificationsSentToday()
+    {
+        return $this->successfulLogEntries()->whereDate('created_at', today())->count();
     }
 }

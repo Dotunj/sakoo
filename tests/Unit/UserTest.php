@@ -50,8 +50,20 @@ class UserTest extends TestCase
     /** @test */
     public function determine_the_number_of_successful_log_entries_a_user_has()
     {
-        $successfulLogEntries = factory(LogEntry::class, 10)->create(['user_id' => $this->user->id, 'status'=> true]);
+        factory(LogEntry::class, 10)->create(['user_id' => $this->user->id, 'status'=> true]);
 
         $this->assertEquals(10, $this->user->successfulLogEntriesCount());
+    }
+
+    /** @test */
+    public function determine_the_number_of_sms_messages_a_user_has_received_today()
+    {
+        $this->withoutExceptionHandling();
+
+        factory(LogEntry::class, 10)->create(['user_id' => $this->user->id, 'status' => true]);
+
+        $this->assertEquals(10, $this->user->notifications_sent_today);
+
+        $this->assertEquals(10, $this->user->notificationsSentToday());
     }
 }
