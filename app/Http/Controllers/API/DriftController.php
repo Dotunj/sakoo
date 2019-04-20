@@ -6,7 +6,6 @@ use App\DriftToken;
 use App\Events\Drift\ConversationStarted;
 use App\Http\Controllers\Controller;
 use App\Services\Drift;
-use App\User;
 use Illuminate\Http\Request;
 
 class DriftController extends Controller
