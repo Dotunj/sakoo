@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreatePhoneNumberRequest;
 use App\PhoneNumber;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreatePhoneNumberRequest;
 
 class PhoneNumberController extends Controller
 {
@@ -68,7 +68,6 @@ class PhoneNumberController extends Controller
         ];
 
         return response()->json($result);
-
     }
 
     public function delete(PhoneNumber $number)

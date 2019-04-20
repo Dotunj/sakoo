@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\PhoneNumber;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PhoneNumberPolicy
@@ -14,5 +14,4 @@ class PhoneNumberPolicy
     {
         return $user->id == $phoneNumber->user_id;
     }
-
 }

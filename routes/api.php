@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,8 +16,7 @@ Route::post('/login', 'API\AuthController@login')->name('login');
 Route::post('/drift/conversation/started', 'API\DriftController@notifyUserConversationStarted');
 Route::get('/drift/install', 'API\DriftController@setup');
 
-
-Route::group(['middleware' => 'auth', 'namespace' => 'API'], function() {
+Route::group(['middleware' => 'auth:api', 'namespace' => 'API'], function () {
     Route::get('phone-numbers', 'PhoneNumberController@index')->name('all.phone.numbers');
     Route::post('/phone-number/create', 'PhoneNumberController@create')->name('create.phone.number');
     Route::get('/phone-number/edit/{number}', 'PhoneNumberController@edit')->name('edit.phone.number');

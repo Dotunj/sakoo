@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Twilio\Rest\Client;
 
-class Twilio 
+class Twilio
 {
     protected $account_sid;
 
@@ -16,7 +16,7 @@ class Twilio
 
     /**
      * Create a new instance
-     * 
+     *
      * @return void
      */
 
@@ -40,8 +40,7 @@ class Twilio
 
     public function notify($number)
     {
-
-       $message = $this->client->messages->create($number, [
+        $message = $this->client->messages->create($number, [
             'from' => $this->number,
             'body' => 'Hi a new drift conversation has started on your website'
         ]);

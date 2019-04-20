@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Mail\UserTrialAboutToExpire;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UserTrialAboutToExpire;
-
 
 class SendTrialEmail implements ShouldQueue
 {

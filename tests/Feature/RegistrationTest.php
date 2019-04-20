@@ -2,16 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-   use RefreshDatabase;
+    use RefreshDatabase;
 
-   /** @test */
+    /** @test */
     public function a_user_can_register()
     {
         $this->withoutExceptionHandling();
@@ -29,7 +28,6 @@ class RegistrationTest extends TestCase
                      'token',
                      'user'
                  ]);
-              
     }
 
     /** @test */
@@ -74,15 +72,15 @@ class RegistrationTest extends TestCase
         $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['name']);
     }
 
-     /** @test */
-     public function a_user_needs_an_email_to_register()
-     {
-         $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['email']);
-     }
+    /** @test */
+    public function a_user_needs_an_email_to_register()
+    {
+        $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['email']);
+    }
 
-     /** @test */
-     public function a_user_needs_a_password_to_register()
-     {
-         $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['password']);
-     }
+    /** @test */
+    public function a_user_needs_a_password_to_register()
+    {
+        $response = $this->json('POST', route('register.user'))->assertJsonValidationErrors(['password']);
+    }
 }

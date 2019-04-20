@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Subscriptions;
-use App\User;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -13,23 +11,22 @@ class SubscriptionController extends Controller
 
     public function __construct()
     {
-       $this->user = auth()->user();
+        $this->user = auth()->user();
     }
 
     public function create(Request $request)
     {
+        $stripeToken = $request->stripeToken;
 
-       $stripeToken = $request->stripeToken;
+        $this->user->newSubscription('main', 'plan_Ec9wlWrOe78hQL')->create($stripeToken);
 
-       $this->user->newSubscription('main', 'plan_Ec9wlWrOe78hQL')->create($stripeToken);
-
-       $result = [
+        $result = [
            'status' => true,
            'message' => 'subscription created successfully',
            'data' => $this->user
        ];
 
-       return response()->json($result, 201);
+        return response()->json($result, 201);
     }
 
     public function cancel()
@@ -56,6 +53,5 @@ class SubscriptionController extends Controller
         ];
 
         return response()->json($result);
-
     }
 }
