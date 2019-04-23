@@ -80,7 +80,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->successfulLogEntries()->count();
     }
 
-    public function getNotificationsSentTodayAttribute() 
+    public function getNotificationsSentTodayAttribute()
     {
         return $this->notificationsSentToday();
     }
